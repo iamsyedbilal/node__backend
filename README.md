@@ -31,6 +31,18 @@ Welcome to the Node.js Backend Journey! This repository documents the day-by-day
   - `about.html`, `contact.html`, `index.html`: HTML files for the Nginx server.
   - `index.js`: Node.js logic for the Nginx server.
 
+## Day 5: Express JS
+
+- **express_basics/**: Introduction to Express.js.
+  - `index.js`: Basic Express.js server setup.
+  - `routes.js`: Example of routing in Express.js.
+- **express_middleware/**: Middleware in Express.js.
+  - `index.js`: Demonstrates the use of middleware.
+  - `logger.js`: Custom middleware for logging requests.
+- **express_templates/**: Templating with Express.js.
+  - `index.js`: Example of using a templating engine.
+  - `views/`: Directory containing template files.
+
 ### How to Run
 
 1. Navigate to the desired folder.
