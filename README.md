@@ -40,8 +40,14 @@ Welcome to the Node.js Backend Journey! This repository documents the day-by-day
   - `index.js`: Demonstrates the use of middleware.
   - `logger.js`: Custom middleware for logging requests.
 - **express_templates/**: Templating with Express.js.
+
   - `index.js`: Example of using a templating engine.
   - `views/`: Directory containing template files.
+
+## Day 6: Middlewares
+
+- **middleware_basics/**: Introduction to middlewares in Node.js.
+- `index.js`: Basic middleware example.
 
 ### How to Run
 
