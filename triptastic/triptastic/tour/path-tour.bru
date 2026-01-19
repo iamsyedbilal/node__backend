@@ -1,0 +1,22 @@
+meta {
+  name: path-tour
+  type: http
+  seq: 4
+}
+
+patch {
+  url: http://localhost:3000/api/v1/tours/696e4a87548e256336d0b31f
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name":"The Forest Hiker"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

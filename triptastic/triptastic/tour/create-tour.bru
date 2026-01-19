@@ -1,0 +1,23 @@
+meta {
+  name: create-tour
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/api/v1/tours
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name":"The Forest Hiker",
+    "price":500
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
