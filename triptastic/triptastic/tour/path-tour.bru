@@ -5,15 +5,17 @@ meta {
 }
 
 patch {
-  url: http://localhost:3000/api/v1/tours/696e4a87548e256336d0b31f
+  url: http://localhost:3000/api/v1/tours/6970ebff930f407e3077cbae
   body: json
   auth: inherit
 }
 
 body:json {
-  {
-    "name":"The Forest Hiker"
-  }
+  { "startDate": [
+        "2021-07-19T09:00:00.000Z",
+        "2021-09-06T09:00:00.000Z",
+        "2022-03-18T10:00:00.000Z"
+      ]}
 }
 
 settings {

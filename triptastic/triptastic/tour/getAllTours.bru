@@ -10,6 +10,16 @@ get {
   auth: inherit
 }
 
+params:query {
+  ~sort: avgRating,-price
+  ~page: 1
+  ~limit: 3
+  ~avgRating[gte]: 4.5
+  ~price[lt]: 500
+  ~fields: name,duration,description
+}
+
 settings {
   encodeUrl: true
+  timeout: 0
 }

@@ -18,6 +18,9 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+// Parse query strings
+app.set('query parser', 'extended');
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 // Mounting the routers
 app.use('/api/v1/users', userRoutes);
