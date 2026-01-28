@@ -1,0 +1,25 @@
+meta {
+  name: signup
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{URL}}api/v1/users/signup
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name":"syed bilal",
+    "email":"syedbilal@gmail.com",
+    "password":"12345678",
+    "confirmPassword":"12345678"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

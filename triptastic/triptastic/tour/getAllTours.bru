@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: http://localhost:3000/api/v1/tours
+  url: {{URL}}api/v1/tours
   body: none
   auth: inherit
 }
@@ -17,6 +17,10 @@ params:query {
   ~avgRating[gte]: 4.5
   ~price[lt]: 500
   ~fields: name,duration,description
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NzhkZWQyMjk2ZWM1MjRiZDAwMWM5MyIsImlhdCI6MTc2OTYxMDg0NywiZXhwIjoxNzc3Mzg2ODQ3fQ.8pknClzvYvnvOhefPP1G94DL5okDF0Pvdrof4MmrL2U
 }
 
 settings {

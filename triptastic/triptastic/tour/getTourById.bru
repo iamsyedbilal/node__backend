@@ -1,13 +1,17 @@
 meta {
   name: getTourById
   type: http
-  seq: 3
+  seq: 2
 }
 
 get {
-  url: http://localhost:3000/api/v1/tours/696e4a87548e256336d0b31f
+  url: {{URL}}api/v1/tours/6970ebff930f407e3077cbae
   body: none
   auth: inherit
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NzhkZWQyMjk2ZWM1MjRiZDAwMWM5MyIsImlhdCI6MTc2OTYxMDg0NywiZXhwIjoxNzc3Mzg2ODQ3fQ.8pknClzvYvnvOhefPP1G94DL5okDF0Pvdrof4MmrL2U
 }
 
 settings {

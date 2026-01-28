@@ -5,6 +5,7 @@ import userRoutes from './routes/user.route.js';
 import tourRoutes from './routes/tour.route.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import AppError from './utils/appError.js';
 
 const app = express();
 
@@ -25,5 +26,9 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 // Mounting the routers
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/tours', tourRoutes);
+
+app.all(/.*/, (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
 
 export default app;

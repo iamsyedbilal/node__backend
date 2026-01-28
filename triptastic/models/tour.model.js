@@ -92,9 +92,8 @@ tourSchema.virtual('durationWeek').get(function () {
   return this.duration / 7;
 });
 
-tourSchema.pre('save', function (next) {
+tourSchema.pre('save', function () {
   this.slugh = slugify(this.name, { lower: true });
-  next();
 });
 
 const Tour = mongoose.model('Tour', tourSchema);
