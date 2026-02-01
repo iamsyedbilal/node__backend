@@ -6,12 +6,20 @@ import {
   getUser,
   updateUser,
 } from '../controllers/user.controller.js';
-import { signup, login } from '../controllers/auth.controller.js';
+import {
+  signup,
+  login,
+  forgotPassowrd,
+  resetPassword,
+} from '../controllers/auth.controller.js';
 
 const router = express.Router();
 
 router.route('/signup').post(signup);
 router.route('/login').post(login);
+
+router.route('/forgot-password').post(forgotPassowrd);
+router.route('/reset-password/:token').patch(resetPassword);
 
 router.route('/').get(getAllUsers).post(createUser);
 
