@@ -11,6 +11,30 @@ const signToken = (id) => {
   });
 };
 
+const createSendToken = (user, statusCode, res) => {
+  const token = signToken(user._id);
+
+  const cookieOptions = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true,
+  };
+
+  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+  res.cookie('jwt', token, cookieOptions);
+
+  user.password = undefined;
+
+  res.status(statusCode).json({
+    status: 'success',
+    token,
+    data: {
+      user,
+    },
+  });
+};
+
 export const signup = asyncHandler(async (req, res, next) => {
   const newUser = await User.create({
     name: req.body.name,
@@ -19,15 +43,7 @@ export const signup = asyncHandler(async (req, res, next) => {
     confirmPassword: req.body.confirmPassword,
   });
 
-  const token = signToken(newUser._id);
-
-  res.status(201).json({
-    status: 'Success',
-    token,
-    data: {
-      user: newUser,
-    },
-  });
+  createSendToken(newUser, 201, res);
 });
 
 export const login = asyncHandler(async (req, res, next) => {
@@ -43,15 +59,7 @@ export const login = asyncHandler(async (req, res, next) => {
     return next(new AppError('Invalid email or password', 401));
   }
 
-  const token = signToken(user._id);
-
-  res.status(201).json({
-    status: 'success',
-    token,
-    data: {
-      user,
-    },
-  });
+  createSendToken(user, 200, res);
 });
 
 export const protectedRoute = asyncHandler(async (req, res, next) => {
@@ -166,10 +174,22 @@ export const resetPassword = asyncHandler(async (req, res, next) => {
   await user.save();
   // 4) log the user in jwt
 
-  const token = signToken(user._id);
+  createSendToken(user, 200, res);
+});
 
-  res.status(200).json({
-    status: 'success',
-    token,
-  });
+export const updatePassword = asyncHandler(async (req, res, next) => {
+  // 1) get the user
+  const user = await User.findById(req.user._id).select('+password');
+
+  // 2) check current password is correct
+  if (!(await user.correctPassword(req.body.currentPassword, user.password))) {
+    return next(new AppError('Your current password is wrong.', 401));
+  }
+  // 3) If so then updated
+  user.password = req.body.newPassword;
+  user.confirmPassword = req.body.confirmPassword;
+  await user.save();
+  // 4) login to github
+
+  createSendToken(user, 200, res);
 });

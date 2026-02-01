@@ -9,7 +9,6 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Please enter your name'],
-    unique: true,
   },
   email: {
     type: String,
@@ -33,7 +32,7 @@ const userSchema = new mongoose.Schema({
   confirmPassword: {
     type: String,
     required: [true, 'Confirm password is required'],
-    // Works on SAVE
+    // Works on SAVE & CREATE
     validate: {
       validator: function (el) {
         return el === this.password;
@@ -44,6 +43,11 @@ const userSchema = new mongoose.Schema({
   passwordChangedAt: Date,
   resetPasswordToken: String,
   resetPasswordExpire: Date,
+  active: {
+    type: Boolean,
+    default: true,
+    select: false,
+  },
 });
 
 // In Mongoose v7+, middleware no longer needs next if you’re using async/await.
@@ -62,6 +66,11 @@ userSchema.pre('save', function () {
   if (!this.isModified('password') || this.isNew) return;
 
   this.passwordChangedAt = Date.now() - 1000;
+});
+
+userSchema.pre('/^find/', function () {
+  // this point to current query
+  this.find({ active: { $ne: false } });
 });
 
 userSchema.methods.correctPassword = async function (password, userPassword) {

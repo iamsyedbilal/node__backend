@@ -1,0 +1,20 @@
+meta {
+  name: deleteMe
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{URL}}api/v1/users/deleteMe
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5N2EyYmQ5MDNjMTA5ZDQ2Nzc2ODIyMSIsImlhdCI6MTc2OTk1MzEyNywiZXhwIjoxNzc3NzI5MTI3fQ.bYJ4PpNQ2mcW74j5MAmqAt3oPS-B1V7oIJZ1FUJqzE0
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
