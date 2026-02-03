@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan'; // HTTP request logger for development
 import userRoutes from './routes/user.route.js';
 import tourRoutes from './routes/tour.route.js';
+import reviewRoutes from './routes/review.route.js  ';
 import path from 'path';
 import rateLimit from 'express-rate-limit'; // To limit repeated requests
 import { fileURLToPath } from 'url';
@@ -77,6 +78,7 @@ app.use(
 // Mount routers for user and tour APIs
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/tours', tourRoutes);
+app.use('/api/v1/reviews', reviewRoutes);
 
 // -------------------------
 // 3) UNHANDLED ROUTES

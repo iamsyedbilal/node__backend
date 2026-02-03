@@ -79,8 +79,37 @@ const tourSchema = new mongoose.Schema(
       type: Date,
       default: Date.now(),
     },
-
     startDate: [Date],
+    startLocation: {
+      // GEO JSON
+      type: {
+        type: String,
+        default: 'Point',
+        enum: ['Point'],
+      },
+      coordinates: [Number],
+      address: String,
+      description: String,
+    },
+    location: [
+      {
+        type: {
+          type: String,
+          default: 'Point',
+          enum: 'Point',
+        },
+        coordinates: [Number],
+        address: String,
+        description: String,
+        day: Number,
+      },
+    ],
+    guides: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },
@@ -94,6 +123,13 @@ tourSchema.virtual('durationWeek').get(function () {
 
 tourSchema.pre('save', function () {
   this.slugh = slugify(this.name, { lower: true });
+});
+
+tourSchema.pre('/^find/', function () {
+  this.populate({
+    path: 'guides',
+    select: '-__v -passwordChangedAt',
+  });
 });
 
 const Tour = mongoose.model('Tour', tourSchema);

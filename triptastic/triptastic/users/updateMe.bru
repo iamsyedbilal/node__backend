@@ -6,10 +6,11 @@ meta {
 
 patch {
   url: {{URL}}api/v1/users/updateMe
-  body: none
+  body: json
   auth: inherit
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
