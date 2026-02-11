@@ -132,6 +132,12 @@ tourSchema.pre('/^find/', function () {
   });
 });
 
+tourSchema.virtual('reviews', {
+  ref: 'Review',
+  foreignField: 'tour',
+  localField: '_id',
+});
+
 const Tour = mongoose.model('Tour', tourSchema);
 
 export default Tour;
