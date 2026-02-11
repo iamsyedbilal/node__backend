@@ -4,7 +4,7 @@ import {
   getAllReviews,
 } from '../controllers/review.controller.js';
 import { restrictTo, protectedRoute } from '../controllers/auth.controller.js';
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router.use(protectedRoute);
 

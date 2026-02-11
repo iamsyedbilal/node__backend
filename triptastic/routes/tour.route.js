@@ -9,9 +9,13 @@ import {
   monthlyPlan,
   getTourStats,
 } from '../controllers/tour.controller.js';
+import reviewRouter from '../routes/review.route';
+import { createReview } from '../controllers/review.controller.js';
 import { protectedRoute, restrictTo } from '../controllers/auth.controller.js';
 
 const router = express.Router();
+
+router.use('/:tourId/reviews', reviewRouter);
 
 router.route('/top-luxury').get(topTours, getAllTours);
 
