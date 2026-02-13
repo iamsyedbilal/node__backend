@@ -15,22 +15,28 @@ import {
   resetPassword,
   updatePassword,
   protectedRoute,
+  restrictTo,
 } from '../controllers/auth.controller.js';
 
 const router = express.Router();
 
 router.route('/signup').post(signup);
 router.route('/login').post(login);
+router.route('/forgot-password').post(forgotPassowrd);
+router.route('/reset-password/:token').patch(resetPassword);
 
 router.route('/updateMe').patch(protectedRoute, updateMe);
 router.route('/deleteMe').delete(protectedRoute, deleteMe);
-
-router.route('/forgot-password').post(forgotPassowrd);
-router.route('/reset-password/:token').patch(resetPassword);
 router.route('/update-password').patch(protectedRoute, updatePassword);
+
+router.use(restrictTo('admin'));
 
 router.route('/').get(getAllUsers).post(createUser);
 
-router.route('/:id').get(getUser).patch(updateUser).delete(deleteUser);
+router
+  .route('/:id')
+  .get(getUser)
+  .patch(updateUser)
+  .delete(protectedRoute, deleteUser);
 
 export default router;

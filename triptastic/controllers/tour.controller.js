@@ -2,6 +2,7 @@ import Tour from '../models/tour.model.js';
 import APIFeatures from '../utils/apiFeatures.js';
 import asyncHandler from '../utils/catchAsync.js';
 import AppError from '../utils/appError.js';
+import { deleteOne, createOne, updateOne } from './handlerFactoryFunc.js';
 
 export const topTours = (req, res, next) => {
   req.query.limit = '5';
@@ -43,47 +44,11 @@ export const getTourById = asyncHandler(async (req, res, next) => {
   });
 });
 
-export const createTour = asyncHandler(async (req, res) => {
-  const createdTour = await Tour.create(req.body);
+export const createTour = createOne(Tour);
 
-  res.status(201).json({
-    status: 'success',
-    data: {
-      createdTour,
-    },
-  });
-});
+export const updateTour = updateOne(Tour);
 
-export const updateTour = asyncHandler(async (req, res, next) => {
-  const updatedTour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
-
-  if (!updatedTour) {
-    return next(new AppError('No tour found with that ID', 404));
-  }
-
-  res.status(200).json({
-    status: 'success',
-    data: {
-      updatedTour,
-    },
-  });
-});
-
-export const deleteTour = asyncHandler(async (req, res, next) => {
-  const tour = await Tour.findByIdAndDelete(req.params.id);
-
-  if (!tour) {
-    return next(new AppError('No tour found with that ID', 404));
-  }
-
-  res.status(204).json({
-    status: 'success',
-    data: null,
-  });
-});
+export const deleteTour = deleteOne(Tour);
 
 export const getTourStats = asyncHandler(async (req, res) => {
   const stats = await Tour.aggregate([

@@ -2,13 +2,13 @@ import express from 'express';
 import morgan from 'morgan'; // HTTP request logger for development
 import userRoutes from './routes/user.route.js';
 import tourRoutes from './routes/tour.route.js';
-import reviewRoutes from './routes/review.route.js  ';
+import reviewRoutes from './routes/review.route.js';
 import path from 'path';
 import rateLimit from 'express-rate-limit'; // To limit repeated requests
 import { fileURLToPath } from 'url';
 import AppError from './utils/appError.js'; // Custom error class
 import helmet from 'helmet'; // Security HTTP headers
-import mongoSanitize from 'express-mongo-sanitize'; // Prevent NoSQL injection
+import hpp from 'hpp';
 
 const app = express();
 
@@ -33,11 +33,6 @@ const limiter = rateLimit({
   message: 'Too many requests from this IP, please try again in an hour!',
 });
 app.use('/api', limiter); // Apply only to API routes
-
-// ---- Data sanitization against NoSQL injection ----
-// Removes $ and . from req.body, req.query, req.params
-// Prevents attackers from sending payloads like { "email": { "$gt": "" } }
-app.use(mongoSanitize());
 
 // ---- HTTP request logger (development only) ----
 if (process.env.NODE_ENV === 'development') {

@@ -1,6 +1,7 @@
 import asyncHandler from '../utils/catchAsync.js';
 import AppError from '../utils/appError.js';
 import User from '../models/user.model.js';
+import { deleteOne, createOne, updateOne } from './handlerFactoryFunc.js';
 
 const filterObj = (obj, ...allowedFiled) => {
   const newObj = {};
@@ -67,16 +68,6 @@ export const createUser = (req, res) => {
   });
 };
 
-export const updateUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!',
-  });
-};
+export const updateUser = updateOne(User);
 
-export const deleteUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!',
-  });
-};
+export const deleteUser = deleteOne(User);
