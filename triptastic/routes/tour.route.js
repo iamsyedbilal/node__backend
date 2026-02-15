@@ -33,10 +33,6 @@ router
   .route('/:id')
   .get(getTourById)
   .patch(protectedRoute, restrictTo('admin', 'lead-guide'), updateTour)
-  .delete(
-    protectedRoute,
-    authController.restrictTo('admin', 'lead-guide'),
-    deleteTour
-  );
+  .delete(protectedRoute, restrictTo('admin', 'lead-guide'), deleteTour);
 
 export default router;

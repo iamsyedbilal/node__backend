@@ -7,7 +7,7 @@ const filterObj = (obj, ...allowedFiled) => {
   const newObj = {};
   Object.keys(obj).forEach((el) => {
     if (allowedFiled.includes(el)) newObj[el] = obj[el];
-  });
+  }); 
   return newObj;
 };
 
