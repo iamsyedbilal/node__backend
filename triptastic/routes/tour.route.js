@@ -8,6 +8,8 @@ import {
   topTours,
   monthlyPlan,
   getTourStats,
+  getToursWithin,
+  getDistances,
 } from '../controllers/tour.controller.js';
 import reviewRouter from './review.route.js';
 import { protectedRoute, restrictTo } from '../controllers/auth.controller.js';
@@ -23,6 +25,12 @@ router.route('/stats').get(getTourStats);
 router
   .route('/monthly-plan/:year')
   .get(protectedRoute, restrictTo('admin', 'lead-guide', 'guide'), monthlyPlan);
+
+router
+  .route('/tours-within/:distance/center/:latlng/unit/:unit')
+  .get(protectedRoute, getToursWithin);
+
+router.route('/distances/:latlng/unit/:unit').get(protectedRoute, getDistances);
 
 router
   .route('/')
