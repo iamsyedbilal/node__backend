@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 dotenv.config({
   path: "./.env",
 });
+import cors from "cors";
 import { connectDB } from "./db/connectDB.js";
 import ideasRouter from "./routes/ideas.route.js";
 const PORT = 5000;
@@ -19,8 +20,14 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(
+  cors({
+    origin: ["http://localhost:5000", "http://localhost:3000"],
+    credentials: true,
+  }),
+);
 
-app.use("/", ideasRouter);
+app.use("/api", ideasRouter);
 
 connectDB()
   .then(() => {
