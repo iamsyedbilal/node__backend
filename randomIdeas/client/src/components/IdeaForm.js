@@ -1,3 +1,5 @@
+import IdeasApi from "../services/ideasApi";
+import IdeaList from "./IdeaList";
 class IdeaForm {
   constructor() {
     this._formModal = document.querySelector("#form-modal");
@@ -7,15 +9,29 @@ class IdeaForm {
     this._form.addEventListener("submit", this.handleSubmit.bind(this));
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
+
+    if (
+      !this._form.elements.text.value ||
+      !this._form.elements.username.value ||
+      !this._form.elements.tag.value
+    ) {
+      alert("All fields are required");
+    }
+
     const idea = {
       text: this._form.elements.text.value,
       username: this._form.elements.username.value,
       tag: this._form.elements.tag.value,
     };
+    const newIdea = await IdeasApi.createIdea(idea);
 
-    console.log(idea);
+    new IdeaList();
+
+    this._form.elements.text.value = "";
+    this._form.elements.username.value = "";
+    this._form.elements.tag.value = "";
   }
 
   render() {
